@@ -8,8 +8,14 @@ import org.junit.Test;
 
 import java.security.InvalidParameterException;
 
-
-public class JohnTEST {
+/**
+ * Created with IntelliJ IDEA.
+ * User: gullery
+ * Date: 25/11/14
+ * Time: 14:21
+ * To change this template use File | Settings | File Templates.
+ */
+public class JohnTest {
 	//private String NON_RELATED;
 	private JSONObject test;
 
@@ -23,8 +29,8 @@ public class JohnTEST {
 		test.put("votes", 10);
 	}
 
-		@Test
-	public void JohnTESTA() {
+	@Test
+	public void bandTestA() {
 		try {
 			Band band = new Band(null);
 			Assert.fail("the flow MUST have been fallen before");
@@ -34,7 +40,7 @@ public class JohnTEST {
 	}
 
 	@Test
-	public void JohnTESTB() {
+	public void bandTestB() {
 		try {
 			Band band = new Band(new JSONObject());
 			Assert.fail("the flow MUST have been fallen before");
@@ -45,7 +51,7 @@ public class JohnTEST {
 	}
 
 	@Test
-	public void JohnTESTC() {
+	public void bandTestC() {
 		test.remove("name");
 		test.remove("logo");
 		Band band = new Band(test);
@@ -58,13 +64,13 @@ public class JohnTEST {
 
 	@Test
 	@Ignore
-	public void JohnTESTD() {
+	public void bandTestD() {
 		Band band = new Band(test);
 		Assert.assertEquals(test.toString(), band.toJSON().toString());
 	}
 
 	@Test
-	public void JohnTESTE() {
+	public void bandTestE() {
 		Band band = new Band(test);
 		JSONObject tmp = new JSONObject();
 		tmp.put("id", test.get("id"));
