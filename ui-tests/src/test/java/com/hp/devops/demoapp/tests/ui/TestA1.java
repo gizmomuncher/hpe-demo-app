@@ -22,7 +22,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
  * To change this template use File        | Settings | File Templates.
  * Testing hotspot widget by Ralu test test
  */
-public class TestA {
+public class TestA1 {
 
     static final boolean isMusicApp = false;
 
