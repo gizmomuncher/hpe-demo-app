@@ -36,7 +36,7 @@ public class TestA111 {
 
         if(isMusicApp){
             testProxy = "web-proxy.bbn.hp.com:808";
-            appUrl = "http://10.14.51.135:8000";
+            appUrl = "http://10.14.51.135:8000"; 
         } else {
             testProxy = "";
             appUrl = "http://myd-vm02771.hpswlabs.adapps.hp.com:8080/jenkins";
