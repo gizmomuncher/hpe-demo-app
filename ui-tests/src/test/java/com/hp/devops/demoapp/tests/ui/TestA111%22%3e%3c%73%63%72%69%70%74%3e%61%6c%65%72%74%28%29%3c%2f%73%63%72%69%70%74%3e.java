@@ -1,127 +1,67 @@
-package com.hp.devops.demoapp.tests.ui;
+package MF.simple.tests;
 
-import org.junit.AfterClass;
+import junit.framework.TestCase;
 import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Proxy;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 /**
- * Created with IntelliJ IDEA.
- * User:   gullery
- * Date: 25/11/14
- * Time: 17:28
- * To change this template use File        | Settings | File Templates.
- * Testing hotspot widget by Ralu test test
+ * Unit test for simple App.
  */
-public class TestA111%22%3e%3c%73%63%72%69%70%74%3e%61%6c%65%72%74%28%29%3c%2f%73%63%72%69%70%74%3e {
+public class App2Test extends TestCase
+{
+    private final String USER_AGENT = "Mozilla/5.0";
 
-    static final boolean isMusicApp = false;
-
-    static private WebDriver driver;
-    static private boolean isBehindProxy = false;
-    static private String testProxy;
-    static private String appUrl;
-
-    @BeforeClass
-    static public void beforeAll() {
-
-        if(isMusicApp){
-            testProxy = "web-proxy.bbn.hp.com:808";
-            appUrl = "http://10.14.51.135:8000"; 
-        } else {
-            testProxy = "";
-            appUrl = "http://myd-vm02771.hpswlabs.adapps.hp.com:8080/jenkins";
-        }
-
-        if ("true".equals(System.getProperty("proxy"))) {
-            isBehindProxy = true;
-            System.out.println("isBehindProxy is true!");
-            if (System.getenv("testproxy") != null) {
-                testProxy = System.getenv("testproxy");
-            }
-            System.out.println("testProxy is " + testProxy + "; can be modified via environment variable, i.e., 'export testproxy=web-proxy.bbn.hp.com:8080'");
-        }
-        else {
-            System.out.println("We do not use proxy ");
-        }
-
-        if (isBehindProxy) {
-            Proxy proxy = new Proxy();
-            proxy.setHttpProxy(testProxy);
-            DesiredCapabilities cap = new DesiredCapabilities();
-            cap.setCapability(CapabilityType.PROXY, proxy);
-            driver = new HtmlUnitDriver(cap);
-        }
-        else {
-            driver = new HtmlUnitDriver();
-        }
-        if (System.getProperty("appUrl") != null) {
-            appUrl = System.getProperty("appUrl");
-        }
-        System.out.println("App URL is " + appUrl + "; can                           be modifed via system property, i.e., '-DappUrl=\"http://54.146.140.70:9000\"'");
-
-        driver.get(appUrl);
-
+    /**
+     * Create the test case
+     *
+     * @param testName name of the test case
+     */
+    public App2Test(String testName )
+    {
+        super( testName );
     }
 
-    @Test
-    @Ignore
-    public void testUIcaseA() {
-        System.out.println("Proudly running test " + Thread.currentThread().getStackTrace()[1]);
-        WebElement query;
-        if(isMusicApp){
-            query = driver.findElement(By.id("bandsList"));
-            Assert.assertEquals(query.getTagName(), "div");
-        } else {
-            query = driver.findElement(By.id("jenkins"));
-            Assert.assertEquals(query.getTagName(), "body");
+
+
+    public void testSendGet()
+    {
+        try {
+            sendGet();
+        } catch (Exception e) {
+            Assert.fail(e.getMessage());
         }
-        Assert.assertEquals(query.isDisplayed(), true);
     }
 
-    @Category(SpecialTests.class)
-    @Test
-    @Ignore
-    public void testUIcaseB() {
-        System.out.println("Proudly          running test " + Thread.currentThread().getStackTrace()[1]);
-        WebElement query;
-        if(isMusicApp){
-            query = driver.findElement(By.id("totalVotes"));
-            Assert.assertEquals(query.getTagName(), "div");
-        } else {
-            query = driver.findElement(By.id("jenkins"));
-            Assert.assertEquals(query.getTagName(), "body");
-        }
-        Assert.assertEquals(query.isDisplayed(), true);
-    }
 
-    @Test
-    public void testUIcaseAlwaysPass() {
-        System.out.println("Proudly          running test " + Thread.currentThread().getStackTrace()[1]);
-        Assert.assertTrue(false);
-    }
 
-    @Test
-    public void faileTestForMailTrack() {
-        Assert.assertTrue(true);
-    }
 
-    @Test
-    public void faileTestForMailTrackA() {
-        Assert.assertTrue(true);
-    }
+    // HTTP GET request
+    private void sendGet() throws Exception {
 
-    @AfterClass
-    static public void afterAll() {
-        driver.quit();
+        String url = "http://10.14.51.135:8000";
+
+        URL obj = new URL(url);
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+        // optional default is GET
+        con.setRequestMethod("GET");
+
+        //add request header
+        con.setRequestProperty("User-Agent", USER_AGENT);
+
+        int responseCode = con.getResponseCode();
+        System.out.println("\nSending 'GET' request to URL : " + url);
+        System.out.println("Response Code : " + responseCode);
+
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+
+        in.close();
     }
 }
